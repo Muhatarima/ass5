@@ -15,7 +15,7 @@
     
 <div  class="bg-slate-200 ">
 
-        <header class="flex  w-10/12 mx-auto mb-2  items-start mt-5 bg-white shadow-md p-4 gap-2">
+        <header class="flex  w-10/12 mx-auto mb-3  items-start mt-5 bg-white shadow-md p-4 gap-2">
 <button class="btn btn-primary px-13">All</button>
   <button class="btn btn-neutral btn-outline px-8">Open</button>
   <button class="btn btn-neutral btn-outline px-5">Closed</button>
@@ -39,19 +39,87 @@
             </div>
 
         </section>
-        <div class="card-container p-3 mb-6 bg-white shadow-md  w-10/12 mx-auto">
-<p>cards
-    
-</p>
-        </div>
+     
 
 
 
 
 </div>
 
+   <div  id="card-container" class="p-4 mb-3 shadow-md  w-10/12 mx-auto">
+<div id="card-${data.id}" class="card space-y-2 w-72 p-2 shadow-xl border-t-green-500 border-t-2">
+    <div class=" flex justify-between">
+        <img src="assets/Open-Status.png" alt="">
+        <div class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>
+    </div>
+    <h2 class="font-bold text-lg">Fix navigation menu on mobile devices</h2>
+    <p class="text-gray-400">The navigation menu doesn't collapse properly on mobile devices...</p>
+    <div class="flex gap-2">
+        <div class="badge badge-outline badge-error rounded-full">BUG</div>
+        <div class="badge badge-outline badge-warning rounded-full">HELP WANTED</div>
+        
 
 
-    
+    </div>
+    <div class=" my-2  border-t border-t-gray-400 ">
+            <p class="text-sm text-gray-500 mb-1 mt-2">#1 by john_doe</p>
+            <p class="text-sm text-gray-500 " >1/15/2024</p>
+        </div>
+</div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+ fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+ .then(res=>res.json())
+ .then(data=>{
+    displayCard(data.data)
+ });
+ function displayCard(cards){
+       let cardContainer=document.getElementById("card-container");
+          cardContainer.innerHTML="";
+
+          for(let card of cards){
+            
+
+          };
+ };
+
+
+ displayCard();
+
+
+
+
+
+
+
+    </script>
 </body>
 </html>
