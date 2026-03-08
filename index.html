@@ -3,9 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
     <title>Document</title>
 </head>
 <body>
-    <p>hello</p>
+    <div class="login h-screen grid place-items-center bg-slate-200 ">
+
+<section class=" w-4/5 lg:w-4/12 ">
+
+            <fieldset class="fieldset bg-white mx-auto shadow-md p-6 bg-base-400 border-base-300 rounded-box  border ">
+          <img class="text-center items-center mx-auto" src="assets/github-logo.png" alt="">
+          <h3 class="font-bold  text-center items-center justify-center  text-3xl">GitHub Issues Tracker</h3>
+          <p class="text-center text-gray-600 text-base items-center justify-center">Sign in to manage your issues</p>
+<legend class="fieldset-legend"></legend>
+
+
+  <label class="label font-semibold ">Username</label>
+  <input type="email" class="input w-full " id="username" placeholder="Enter Username" />
+  <p class="text-blue-500 my-2">Default: admin</p>
+
+  <label class="label font-semibold">Password</label>
+  <input type="password" class="input w-full"   id="password"  placeholder="Enter Password" />
+   <p class="text-blue-500 my-2">Default: admin123</p>
+
+  <button class="btn btn-primary mt-2 "   onclick="login()" >Sign In</button>
+  <p class="text-red-600 font-bold text-center my-1" id="error"></p>
+    <div class="flex items-center my-4">
+    <div class="flex-grow border-t border-gray-300"></div>
+    <span class="mx-4 text-gray-500 font-medium">OR</span>
+    <div class="flex-grow border-t border-gray-300"></div>
+  </div>
+
+  <div class="bg-gray-100 rounded-lg p-3 text-center shadow-sm">
+    <p class="text-gray-600 mb-4 font-medium">Demo Credentials:</p>
+    
+    <p class="text-gray-800">
+      <span class="font-semibold">Username:</span> admin
+    </p>
+    <p class="text-gray-800">
+      <span class="font-semibold">Password:</span> admin123
+    </p>
+  </div>
+</fieldset>
+</section>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script>
+        function login(){
+            let username=document.getElementById("username").value;
+            let password=document.getElementById("password").value;
+           if(username==="admin" && password==="admin123"){
+                     window.location.href="issueTracker.html";
+
+           } else{
+             document.getElementById("error").innerText = "Invalid username or password";
+           }
+
+        }
+
+</script>
 </body>
+
 </html>
