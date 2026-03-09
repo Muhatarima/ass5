@@ -12,6 +12,22 @@
 <link rel="stylesheet" href="style.css">
     <title>Github issue Tracker</title>
 </head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <body>
     <nav>
         <div class="navbar w-10/12 mt-3 mx-auto bg-base-100 shadow-sm">
@@ -143,6 +159,54 @@
 
 
 
+<div id="modal" class="fixed inset-0  bg-opacity-20 hidden flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg p-10 w-3/5 space-y-4">
+
+    
+   
+
+    
+    <h2 id="modal-title" class="font-bold text-xl"></h2>
+
+    
+    
+
+     <div class="flex justify-between items-center"> 
+
+  <div class="flex  gap-3 mb-4 mt-2">
+        <div id="modal-status" class="badge rounded-full px-3 badge-success">Open</div>
+      <p id="modal-author" class="text-sm text-gray-500"></p>
+  </div>
+      
+    </div>
+
+    
+    <div id="modal-labels" class="flex gap-2"></div>
+
+    
+    <p id="modal-description" class="text-gray-600"></p>
+
+    
+    <div class="flex justify-between ">
+      <div  class="w-1/2 items-center">
+        <p class="text-sm text-gray-400">Assignee:</p>
+        <p id="modal-assignee" class="font-bold"></p>
+      </div>
+      <div class="w-1/2 items-center">
+        <p class="text-sm text-gray-400 mb-3">Priority:</p>
+        <div id="modal-priority" class="badge rounded-full badge-error mb-2"></div> <br>
+
+
+      </div>
+
+      
+    </div>
+            <div class="flex items-end justify-end"><button onclick="closeModal()" class="btn px-4  btn-primary">Close</button></div>
+
+  </div>
+
+</div>
+
 
 
 
@@ -176,7 +240,6 @@
 
     for (let card of cards) {
 
-      // STEP A: Priority Badge
       let badgeHTML = "";
 
       if (card.priority === "high") {
@@ -189,7 +252,7 @@
         badgeHTML = `<div class="badge badge-soft px-4 rounded-full" style="background:#f3e8ff; color:#9333ea;">LOW</div>`;
       }
 
-      // STEP B: Status Image + Border Color
+      
       let imgSrc = "";
       let borderColor = "";
 
@@ -202,7 +265,6 @@
         borderColor = "border-t-green-500";
       }
 
-      // STEP C: Label Badges (max 2)
       let labelColors = {
         "bug"             : "badge-error",
         "help wanted"     : "badge-warning",
@@ -221,12 +283,13 @@
         labelsHTML += `<div class="badge badge-outline ${color} rounded-full whitespace-nowrap">${label.toUpperCase()}</div>`;
       }
 
-      // STEP D: Format Date
+    
       let date = new Date(card.createdAt).toLocaleDateString();
 
-      // STEP E: Build the card
+        
       cardContainer.innerHTML += `
-        <div class="card space-y-2 w-96 p-2 shadow-xl border-t-2 ${borderColor}">
+        <div onclick="openModal(${card.id})" class="card space-y-2 w-96 p-2 shadow-xl border-t-2 ${borderColor} cursor-pointer hover:shadow-2xl">
+
 
           <div class="flex justify-between items-center">
             <img src="${imgSrc}" alt="status icon">
@@ -294,6 +357,14 @@ function filterCards(status) {
  
 function searchIssues() {
 
+
+
+    
+  document.getElementById("btn-all").className    = "btn btn-neutral px-13 btn-outline";
+    document.getElementById("btn-open").className   = "btn btn-neutral px-8 btn-outline";
+     
+    document.getElementById("btn-closed").className = "btn btn-neutral px-5 btn-outline";
+
   
   let searchText = document.getElementById("search-input").value;
 
@@ -308,6 +379,75 @@ function searchIssues() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+function openModal(id) {
+
+
+  let card = allCards.find(c => c.id === id);
+
+  
+   document.getElementById("modal-title").innerHTML       = card.title;
+
+  document.getElementById("modal-description").innerHTML = card.description;
+  document.getElementById("modal-author").innerHTML      = " Opened by" + '  '+  card.author +  +"    " +" • " +"     "+ new Date(card.createdAt).toLocaleDateString();
+         
+  
+              document.getElementById("modal-assignee").innerHTML    = card.assignee || "None";
+
+  document.getElementById("modal-priority").innerHTML    = card.priority.toUpperCase();
+
+
+  if (card.status === "open") { 
+
+    document.getElementById("modal-status").innerHTML  = "Opened";
+    document.getElementById("modal-status").className  = "badge badge-success";
+  } else {
+    document.getElementById("modal-status").innerHTML  = "Closed";
+           document.getElementById("modal-status").className  = "badge badge-error";
+  }    
+
+
+
+
+
+
+
+
+
+  let labelColors = {
+    "bug"             : "badge-error",
+    "help wanted"     : "badge-warning",
+    "enhancement"     : "badge-success",
+    "documentation"   : "badge-info",
+    "good first issue": "badge-primary"
+  };
+
+  let labelsHTML = "";
+  for (let label of card.labels) {
+    let color = labelColors[label] || "badge-neutral";
+    labelsHTML += `<div class="badge badge-outline ${color} rounded-full">${label.toUpperCase()}</div>`;
+  }
+  document.getElementById("modal-labels").innerHTML = labelsHTML;
+
+
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
 
 
 
