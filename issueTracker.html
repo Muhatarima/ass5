@@ -21,8 +21,8 @@
         GitHub Issues Tracker</a>
   </div>
   <div class="flex gap-2">
-    <input type="text" placeholder="  Search Issues..." class="input px-3 input-bordered w-24 md:w-auto" />
-     <button class="btn btn-primary ">+ NEW ISSUES</button>
+    <input        id="search-input" type="text" placeholder="  Search Issues..." class="input px-3 input-bordered w-24 md:w-auto" />
+     <button       onclick="searchIssues()"  class="btn btn-primary ">+ NEW ISSUES</button>
     <div class="dropdown dropdown-end ">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
        
@@ -254,33 +254,21 @@
 
 
 
-function filterCards(status){
-        let issueCount= document.getElementById("issue-count");
-        issueCount="";
-     document.getElementById("btn-all").className= "btn btn-neutral  px-13 btn-outline";
-     document.getElementById("btn-open").className= "btn btn-neutral px-8 btn-outline";
-     document.getElementById("btn-closed").className= "btn btn-neutral px-5 btn-outline";
+function filterCards(status) {
 
-        document.getElementById(`btn-${status}`).className = "btn btn-primary px-7";
-
-
-
-
-                     if (status === "all") {
-    displayCard(allCards);
-
-  } else {
-    let filtered = [];
-
-    for (let card of allCards) {
-      if (card.status === status) {
-        filtered.push(card);
-      }
-    }
+  
+  document.getElementById("btn-all").className    = "btn btn-neutral px-13 btn-outline";
+    document.getElementById("btn-open").className   = "btn btn-neutral px-8 btn-outline";
      
-     
-             if (status === "all") {
-    filtered = allCards;  
+                  document.getElementById("btn-closed").className = "btn btn-neutral px-5 btn-outline";
+
+  document.getElementById(`btn-${status}`).className = "btn btn-primary px-8";
+
+ 
+                let filtered = [];
+
+  if (status === "all") {
+    filtered = allCards;
 
   } else {
     for (let card of allCards) {
@@ -295,23 +283,27 @@ function filterCards(status){
 
 
 
-   
 
+  displayCard(filtered);
 
-           
-    displayCard(filtered);
-
-  };
-
-
-
-  
 };
 
 
+
+
  
+function searchIssues() {
+
+  
+  let searchText = document.getElementById("search-input").value;
 
 
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=" + searchText)
+    .then(res => res.json())
+    .then(data => {
+      displayCard(data.data);
+    });
+}
 
 
 
