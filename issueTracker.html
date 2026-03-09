@@ -45,8 +45,12 @@
 
       <input id="search-input" type="text" placeholder="Search Issues..." 
              class="input input-bordered input-sm md:input-md w-24 sm:w-40 md:w-64" />
+
+
       <button onclick="searchIssues()" 
               class="btn btn-primary btn-sm md:btn-md text-xs md:text-sm">
+
+
         <span class="hidden sm:block">+ NEW ISSUES</span>
         <span class="sm:hidden">+</span>
       </button>
@@ -57,7 +61,8 @@
 
         </div>
         <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          <li><a class="justify-between">Profile<span class="badge">New</span></a></li>
+            <li><a class="justify-between">Profile<span class="badge">New</span></a></li>
+
           <li><a>Settings</a></li>
           <li><a>Logout</a></li>
         </ul>
@@ -97,8 +102,8 @@
 
 
   <header class="flex flex-wrap w-10/12 mx-auto mb-3 items-start mt-5 bg-white shadow-md p-4 gap-2">
-    <button id="btn-all"    onclick="filterCards('all')"    class="btn btn-primary px-13">All</button>
-    <button id="btn-open"   onclick="filterCards('open')"   class="btn btn-neutral btn-outline px-8">Open</button>
+             <button id="btn-all"    onclick="filterCards('all')"    class="btn btn-primary px-13">All</button>
+      <button id="btn-open"   onclick="filterCards('open')"   class="btn btn-neutral btn-outline px-8">Open</button>
     <button id="btn-closed" onclick="filterCards('closed')" class="btn btn-neutral btn-outline px-5">Closed</button>
   </header>
 
@@ -116,14 +121,14 @@
 
     <div class="flex flex-row gap-2">
       <img class="rounded-full bg-gray-300 p-2 h-10 w-10" src="assets/Aperture.png" alt="">
-      <div>
+               <div>
             <h4 id="issue-count" class="font-bold">50 Issues</h4>
         <p class="text-zinc-400 text-sm">Track and manage your project issues</p>
-      </div>
+           </div>
     </div>
 
     
-    <div class="flex gap-4 items-center">
+                     <div class="flex gap-4 items-center">
 
               <p class="flex gap-1">🟢 Open</p>
       <p class="flex gap-1">🟣 Closed</p>
@@ -164,7 +169,7 @@
 
 
 
-<div id="modal" class="fixed inset-0 bg-opacity-50 hidden flex items-center justify-center z-50 px-4">
+                <div id="modal" class="fixed inset-0 bg-opacity-50 hidden flex items-center justify-center z-50 px-4">
   <div class="bg-white rounded-lg p-6 md:p-10 w-full sm:w-4/5 md:w-3/5 space-y-4 max-h-[90vh] overflow-y-auto">
 
   
