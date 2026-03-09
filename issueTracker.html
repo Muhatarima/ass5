@@ -47,18 +47,16 @@
 </div>
 
    <div  id="card-container" class="p-4 mb-3 shadow-md  w-10/12 mx-auto">
-<div id="card-${data.id}" class="card space-y-2 w-72 p-2 shadow-xl border-t-green-500 border-t-2">
+<div id="card-${card.id}" class="card space-y-2 w-72 p-2 shadow-xl border-t-green-500 border-t-2">
     <div class=" flex justify-between">
-        <img src="assets/Open-Status.png" alt="">
-        <div class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>
+        <img id="card-image" src="assets/Open-Status.png" alt="">
+        <div  id="card-badge"  class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>
     </div>
-    <h2 class="font-bold text-lg">Fix navigation menu on mobile devices</h2>
-    <p class="text-gray-400">The navigation menu doesn't collapse properly on mobile devices...</p>
-    <div class="flex gap-2">
+    <h2 id="card-title" class="font-bold text-lg">Fix navigation menu on mobile devices</h2>
+    <p id="card-des" class="text-gray-400">The navigation menu doesn't collapse properly on mobile devices...</p>
+    <div id="show" class="flex gap-2">
         <div class="badge badge-outline badge-error rounded-full">BUG</div>
         <div class="badge badge-outline badge-warning rounded-full">HELP WANTED</div>
-        
-
 
     </div>
     <div class=" my-2  border-t border-t-gray-400 ">
@@ -94,32 +92,62 @@
 
 
 
+<script>
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then(res => res.json())
+    .then(data => { displayCard(data.data) });
 
-    <script>
- fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
- .then(res=>res.json())
- .then(data=>{
-    displayCard(data.data)
- });
- function displayCard(cards){
-       let cardContainer=document.getElementById("card-container");
-          cardContainer.innerHTML="";
+  function displayCard(cards) {
+    let cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
 
-          for(let card of cards){
-            
+    for (let card of cards) {
 
-          };
- };
+      // Priority badge
+      let badgeHTML = "";
+      if (card.priority === "high") {
+        badgeHTML = `<div class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>`;
+      } else if (card.priority === "medium") {
+        badgeHTML = `<div class="badge badge-soft badge-warning px-4 rounded-full">MEDIUM</div>`;
+      } else {
+        badgeHTML = `<div class="badge badge-ghost px-4 rounded-full">LOW</div>`;
+      }
 
+      // Status image
+      let imgSrc = card.status === "closed"
+        ? "assets/Closed- Status .png"
+        : "assets/Open-Status.png";
 
- displayCard();
+      // Labels/tags
+      let labelsHTML = "";
+      if (card.labels && card.labels.length > 0) {
+        labelsHTML = card.labels.map(label =>
+          `<div class="badge badge-outline badge-error rounded-full">${label}</div>`
+        ).join("");
+      }
 
+      // Date formatting
+      let date = new Date(card.created_at).toLocaleDateString();
 
-
-
-
-
-
-    </script>
+      cardContainer.innerHTML += `
+        <div class="card space-y-2 w-72 p-2 shadow-xl border-t-green-500 border-t-2">
+          <div class="flex justify-between">
+            <img src="${imgSrc}" alt="status">
+            ${badgeHTML}
+          </div>
+          <h2 class="font-bold text-lg">${card.title}</h2>
+          <p class="text-gray-400">${card.description}</p>
+          <div class="flex gap-2">
+            ${labelsHTML}
+          </div>
+          <div class="my-2 border-t border-t-gray-400">
+            <p class="text-sm text-gray-500 mb-1 mt-2">#${card.id} by ${card.author}</p>
+            <p class="text-sm text-gray-500">${date}</p>
+          </div>
+        </div>
+      `;
+    }
+  }
+</script>
 </body>
 </html>
