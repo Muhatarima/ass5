@@ -121,29 +121,23 @@
 
 </div>
 
-   <div  id="card-container" class="p-4 mb-3 shadow-md flex flex-wrap gap-3 w-10/12 mx-auto">
-<div id="card-${card.id}" class="card space-y-2 w-76 p-3 shadow-xl border-t-green-500 border-t-2">
-    <div class=" flex justify-between">
-        <img id="card-image" src="assets/Open-Status.png" alt="">
-        <div  id="card-badge"  class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>
-    </div>
-    <h2 id="card-title" class="font-bold text-lg">Fix navigation menu on mobile devices</h2>
-    <p id="card-des" class="text-gray-400">The navigation menu doesn't collapse properly on mobile devices...</p>
-    <div id="show" class="flex gap-2">
-        <div class="badge badge-outline badge-error rounded-full">BUG</div>
-        <div class="badge badge-outline badge-warning rounded-full">HELP WANTED</div>
 
-    </div>
-    <div class=" my-2  border-t border-t-gray-400 ">
-            <p class="text-sm text-gray-500 mb-1 mt-2">#1 by john_doe</p>
-            <p class="text-sm text-gray-500 " >1/15/2024</p>
-        </div>
+
+
+          <div id="spinner" class="flex justify-center items-center py-10">
+           <span class="loading loading-spinner loading-lg text-primary"></span>
+                      </div>
+
+
+
+  
+  
+
+
+
+<div id="card-container" class="p-4 mb-3 shadow-md flex flex-wrap gap-3 w-10/12 mx-auto">
+
 </div>
-        </div>
-
-
-
-
 
 
 
@@ -224,15 +218,25 @@
 
 
 
-  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-    .then(res => res.json())
-    .then(data => {
 
-        allCards = data.data;
-        displayCard(allCards);
-      
-    });
 
+
+document.getElementById("spinner").classList.remove("hidden");
+
+fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+  .then(res => res.json())
+  .then(data => {
+    allCards = data.data;
+    displayCard(allCards);
+
+
+    document.getElementById("spinner").classList.add("hidden");
+  });
+
+
+
+
+ 
   function displayCard(cards) {
 
     let cardContainer = document.getElementById("card-container");
@@ -258,11 +262,11 @@
 
       if (card.status === "closed") {
         imgSrc      = "assets/Closed- Status .png";
-        borderColor = "border-t-purple-500";
+        borderColor = "border-t-purple-500 border-t-2";
 
       } else {
         imgSrc      = "assets/Open-Status.png";
-        borderColor = "border-t-green-500";
+        borderColor = "border-t-green-500 border-t-2";
       }
 
       let labelColors = {
@@ -320,10 +324,10 @@
 function filterCards(status) {
 
   
-  document.getElementById("btn-all").className    = "btn btn-neutral px-13 btn-outline";
+  document.getElementById("btn-all").className    = "btn btn-neutral px-8 btn-outline";
     document.getElementById("btn-open").className   = "btn btn-neutral px-8 btn-outline";
      
-                  document.getElementById("btn-closed").className = "btn btn-neutral px-5 btn-outline";
+                  document.getElementById("btn-closed").className = "btn btn-neutral px-6 btn-outline";
 
   document.getElementById(`btn-${status}`).className = "btn btn-primary px-8";
 
@@ -373,6 +377,10 @@ function searchIssues() {
     .then(res => res.json())
     .then(data => {
       displayCard(data.data);
+
+
+            document.getElementById("issue-count").innerHTML = data.data.length + " Issues";
+
     });
 }
 
@@ -401,7 +409,7 @@ function openModal(id) {
    document.getElementById("modal-title").innerHTML       = card.title;
 
   document.getElementById("modal-description").innerHTML = card.description;
-  document.getElementById("modal-author").innerHTML      = " Opened by" + '  '+  card.author +  +"    " +" • " +"     "+ new Date(card.createdAt).toLocaleDateString();
+document.getElementById("modal-author").innerHTML = "• Opened by " + card.author + " • " + new Date(card.createdAt).toLocaleDateString();
          
   
               document.getElementById("modal-assignee").innerHTML    = card.assignee || "None";

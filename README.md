@@ -1,128 +1,33 @@
-# 🌟 Welcome To (সহজ সরল সিম্পল) Assignment - 5
-
-# **📅 Deadline For 60 marks:** 9th March, 2026 (11:59 pm ⏱️)  
-#  📅 No Deadline For 50 marks  
-# **📅 Deadline For 30 marks:** Any time after 9th March.
-
----
-
-# Assignment-05: GitHub Issues Tracker
+ - 1️⃣ What is the difference between var, let, and const?
+Var is the old way to declare a variable but es6 doesnot use it . instead it use let and const for variable and let is changale, can re declare but const is constant cannot re declarable .
+let age=20,
+const name="Medha"
 
 
-### **API Endpoints:**
-###  **All Issues:** 
-  - https://phi-lab-server.vercel.app/api/v1/lab/issues 
-
-
-###  **Single Issue:**
-   - https://phi-lab-server.vercel.app/api/v1/lab/issue/{id}
-
-   - Example: https://phi-lab-server.vercel.app/api/v1/lab/issue/33
-
-
-###  **Search Issue:** https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={searchText}
-
-   - Example:  https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=notifications
-
-
----
-
-## 📝 Main Requirements
-
-## 🎨 Design Part
-
-## Login Page
-- Create a login page containing a logo, title, and sub-title
-- Below that, there will be 2 inputs, a sign-in button, and a demo credential to sign in. Follow the Figma for this page 
-- Styled as per Figma
-
-## Main Page: 
-
-### Navbar: 
-
-- Navbar with website logo/name on the left
-- Search input and button on the right
-
-### Tab Section like Figma: 
-
-- 3 tab ( All, Open, Closed) at the top of this section.(**All**, **Open**, **Closed**)
-
-- Below the tab, there will be an icon, the issue count, some text on the left, and an open and closed marker on the right
-
-- Responsiveness: The website should be responsive for mobile devices. It is totally up to you. 
-
-
---- 
-
-
-## ⚙️ Functionalities
-- In login page, there will be default admin credentials (username, password). You need to sign in using these credentials.
-
-- Load all issues and display as per Figma
-
-- On clicking on an open or closed tab, it will load the issues data of the related tab and show it in a display-like card in a 4-column layout like Figma. By default, it will show all data 
-
-- Each card shows:
-  - Title
-  - Description
-  - Status 
-  - Author
-  - Priority
-  - Label
-  - CreatedAt
-- Clicking on an issue  card will open a modal and show all the information about that Issue. 
-
-### 🚀 Challenges
-
-
-- Show the card Top border based on their category(open, closed), open card will have Green Boder, closed card will have a purple border on top. 
-
-- Loading spinner on data load
-
-- Show active button on changing category names
-
-- Implement Search Functionality and 8 meaningful github commit.  
-
-- Create a readme file and answer this question on your own. Don’t copy-paste from Google or any AI chatbot. 
-    - 1️⃣ What is the difference between var, let, and const?
     - 2️⃣ What is the spread operator (...)?
+It spreads the elements or items from an array or object into indivitual parts ,meants it just unpackes all the item indivitually.
+let arr1=[1,2,4];
+let arr2=[...arr1,7,8] //[1,2,4,7,8]
+
     - 3️⃣ What is the difference between map(), filter(), and forEach()?
+
+forEach()- a loop, does something  and returns something;
+map()-loops but return a new array with changed value , does something and changes the actual value and replaces them in a new array and returns.
+filter()-loops and returns the matching elements only by doing something
+
+let numbers = [1, 2, 3, 4];
+numbers.forEach(n => console.log(n)); // just prints each number
+let doubled = numbers.map(n => n * 2);// [2, 4, 6, 8]
+let evens = numbers.filter(n => n % 2 === 0);// [2, 4]
+
+
+
     - 4️⃣ What is an arrow function?
+  A better and easier way to write funcion by using => , just like variable declaration 
+              let add = (a, b) => a + b;
+
     - 5️⃣ What are template literals?
-
-
----
-
-## 🛠️ Technology Stack
-
-- **HTML**
-- **CSS** (Vanilla/Tailwind/DaisyUI)
-- **JavaScript** (Vanilla)
-
----
-
-## 🔑 Demo Credentials
-
-```text
-Username: admin
-Password: admin123
-```
-
-
----
-
-### Optional: 
- - No need to show status: Open, Closed styles On modals. 
- - No Need to show icon on labels 
- - No need to apply styles on Priority 
---- 
-
-
-## 📤 What to submit
-
-- **GitHub Repository Link:**
-- **Live Site Link:**
-
----
-
-
+ A way to put variable inside a string using backticks (``) and (${variable}) 
+  let age=21;
+  const name="Medha";
+  let welcome=` Hi i'm ${name} , i'm ${age} years old `;
