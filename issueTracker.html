@@ -46,8 +46,8 @@
 
 </div>
 
-   <div  id="card-container" class="p-4 mb-3 shadow-md  w-10/12 mx-auto">
-<div id="card-${card.id}" class="card space-y-2 w-72 p-2 shadow-xl border-t-green-500 border-t-2">
+   <div  id="card-container" class="p-4 mb-3 shadow-md flex flex-wrap gap-3 w-10/12 mx-auto">
+<div id="card-${card.id}" class="card space-y-2 w-76 p-3 shadow-xl border-t-green-500 border-t-2">
     <div class=" flex justify-between">
         <img id="card-image" src="assets/Open-Status.png" alt="">
         <div  id="card-badge"  class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>
@@ -88,62 +88,91 @@
 
 
 
-
-
-
-
 <script>
+  // Fetch data from the API
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then(res => res.json())
-    .then(data => { displayCard(data.data) });
+    .then(data => {
+      displayCard(data.data);
+    });
 
   function displayCard(cards) {
+
     let cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
 
     for (let card of cards) {
 
-      // Priority badge
+      // STEP A: Priority Badge
       let badgeHTML = "";
+
       if (card.priority === "high") {
         badgeHTML = `<div class="badge badge-soft badge-error px-4 rounded-full">HIGH</div>`;
+
       } else if (card.priority === "medium") {
         badgeHTML = `<div class="badge badge-soft badge-warning px-4 rounded-full">MEDIUM</div>`;
+
       } else {
-        badgeHTML = `<div class="badge badge-ghost px-4 rounded-full">LOW</div>`;
+        badgeHTML = `<div class="badge badge-soft px-4 rounded-full" style="background:#f3e8ff; color:#9333ea;">LOW</div>`;
       }
 
-      // Status image
-      let imgSrc = card.status === "closed"
-        ? "assets/Closed- Status .png"
-        : "assets/Open-Status.png";
+      // STEP B: Status Image + Border Color
+      let imgSrc = "";
+      let borderColor = "";
 
-      // Labels/tags
+      if (card.status === "closed") {
+        imgSrc      = "assets/Closed- Status .png";
+        borderColor = "border-t-purple-500";
+
+      } else {
+        imgSrc      = "assets/Open-Status.png";
+        borderColor = "border-t-green-500";
+      }
+
+      // STEP C: Label Badges (max 2)
+      let labelColors = {
+        "bug"             : "badge-error",
+        "help wanted"     : "badge-warning",
+        "enhancement"     : "badge-success",
+        "documentation"   : "badge-info",
+        "good first issue": "badge-primary"
+      };
+
       let labelsHTML = "";
-      if (card.labels && card.labels.length > 0) {
-        labelsHTML = card.labels.map(label =>
-          `<div class="badge badge-outline badge-error rounded-full">${label}</div>`
-        ).join("");
+
+      for (let label of card.labels.slice(0, 2)) {
+        let color = labelColors[label];
+        if (!color) {
+          color = "badge-neutral";
+        }
+        labelsHTML += `<div class="badge badge-outline ${color} rounded-full whitespace-nowrap">${label.toUpperCase()}</div>`;
       }
 
-      // Date formatting
-      let date = new Date(card.created_at).toLocaleDateString();
+      // STEP D: Format Date
+      let date = new Date(card.createdAt).toLocaleDateString();
 
+      // STEP E: Build the card
       cardContainer.innerHTML += `
-        <div class="card space-y-2 w-72 p-2 shadow-xl border-t-green-500 border-t-2">
-          <div class="flex justify-between">
-            <img src="${imgSrc}" alt="status">
+        <div class="card space-y-2 w-96 p-2 shadow-xl border-t-2 ${borderColor}">
+
+          <div class="flex justify-between items-center">
+            <img src="${imgSrc}" alt="status icon">
             ${badgeHTML}
           </div>
+
           <h2 class="font-bold text-lg">${card.title}</h2>
-          <p class="text-gray-400">${card.description}</p>
+
+          <p class="text-gray-400 line-clamp-2">${card.description}</p>
+
           <div class="flex gap-2">
             ${labelsHTML}
           </div>
+
           <div class="my-2 border-t border-t-gray-400">
             <p class="text-sm text-gray-500 mb-1 mt-2">#${card.id} by ${card.author}</p>
             <p class="text-sm text-gray-500">${date}</p>
           </div>
+
         </div>
       `;
     }
