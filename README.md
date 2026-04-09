@@ -2,18 +2,20 @@
 
 A clean, responsive web app to track and manage GitHub-style issues — with login, real-time search, status filtering, priority badges, and a detailed modal view.
 
----
+<div align="center">
 
-## Live Demo
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-6366f1?style=for-the-badge&logo=github)](https://muhatarima.github.io/github-issues-tracker/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Muhatarima/github-issues-tracker)
 
-> Add your live link here: `https://your-live-link.com`
+</div>
 
 ---
 
 ## Screenshot
 
-> Add a screenshot here after deploying:
-> `![App Screenshot](./assets/screenshot.png)`
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Muhatarima/github-issues-tracker/main/assets/preview.png" alt="GitHub Issues Tracker Preview" width="600"/>
+</div>
 
 ---
 
@@ -30,14 +32,14 @@ A clean, responsive web app to track and manage GitHub-style issues — with log
 ## Features
 
 - **Login Page** — credential-based authentication with error handling
-- **Issue Cards** — displays all issues fetched live from a REST API
+- **Issue Cards** — all issues fetched live from a REST API
 - **Status Filter** — filter issues by All / Open / Closed
 - **Real-time Search** — search issues via API query
-- **Priority Badges** — color-coded High / Medium / Low priority indicators
+- **Priority Badges** — color-coded High / Medium / Low indicators
 - **Label Badges** — bug, enhancement, documentation, help wanted, good first issue
-- **Issue Modal** — click any card to view full details (assignee, priority, labels, description)
-- **Live Issue Count** — updates dynamically on filter/search
-- **Loading Spinner** — shown while fetching data
+- **Issue Modal** — click any card to view full details including assignee, priority, labels and description
+- **Live Issue Count** — updates dynamically based on filter or search
+- **Loading Spinner** — shown while fetching data from API
 - **Fully Responsive** — works on mobile, tablet, and desktop
 
 ---
@@ -51,31 +53,41 @@ All dependencies are loaded via CDN — no installation required.
 | Tailwind CSS Browser | v4 | Utility-first CSS framework |
 | DaisyUI | v5 | Component library for Tailwind |
 | Font Awesome | v7 | Icons |
-| Google Fonts (Geist) | — | Typography |
+| Google Fonts (Geist) | latest | Typography |
 
 ---
 
 ## Run Locally
 
-Since this is a pure HTML/CSS/JS project with no build step, running it locally is simple.
-
 **1. Clone the repository**
+
 ```bash
-git clone https://github.com/Muhatarima/YOUR-REPO-NAME.git
+# HTTPS
+git clone https://github.com/Muhatarima/github-issues-tracker.git
+
+# GitHub CLI
+gh repo clone Muhatarima/github-issues-tracker
 ```
 
-**2. Open in browser**
+**2. Open the project**
 
-Just open `index.html` directly in your browser — or use the Live Server extension in VS Code for the best experience.
+```bash
+cd github-issues-tracker
+```
+
+**3. Launch in browser**
+
+Open `index.html` directly in your browser, or use the **Live Server** extension in VS Code for best experience.
 
 ```
 Right click index.html → Open with Live Server
 ```
 
-**3. Login credentials**
+**4. Login credentials**
+
 ```
-Username: admin
-Password: admin123
+Username : admin
+Password : admin123
 ```
 
 ---
@@ -94,10 +106,11 @@ GET https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q={query}
 ## Project Structure
 
 ```
-├── index.html          # Login page
-├── issueTracker.html   # Main issues tracker page
-├── style.css           # Custom styles
-└── assets/             # Images and icons
+github-issues-tracker/
+├── index.html            # Login page
+├── issueTracker.html     # Main issues tracker page
+├── style.css             # Custom styles
+└── assets/               # Images and icons
 ```
 
 ---
